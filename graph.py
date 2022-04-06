@@ -1,39 +1,35 @@
 from matplotlib import pylab as plt
 import pandas as pd
+import os #For changing the working directory
 
-# pd.plotting.register_matplotlib_converters()
+os.chdir('/Users/X412/OneDrive - IE Students/Desktop')
 
-df1 = pd.read_csv("AAPL.csv")
-print(df1.head())
-df1['Date'] = pd.to_datetime(df1.Date)
-# print(df1.head())
+print("Current working directory: {0}".format(os.getcwd()))
 
-df2 = pd.read_excel("iphone-dates-2019.xlsx")
-print(df2)
-df2['Date'] = pd.to_datetime(df2.date)
-# indexes = []
-# for date2 in df2.Date:
-#     for index, date1 in enumerate(df1.Date):
-#         if date2 == date1:
-#             indexes.append(index)
-# print(indexes)
+dfMBG = pd.read_csv("MBG.DE.csv")
+print(dfMBG.head())
+dfMBG['Date'] = pd.to_datetime(dfMBG.Date)
+
+dfBMW = pd.read_csv("BMW.DE.csv")
+print(dfBMW.head())
+dfBMW['Date'] = pd.to_datetime(dfBMW.Date)
+
 
 index2 = []
-for date2 in df2.Date:
-    if df1.index[df1.Date == date2].values.size:
-        index2.append(int(df1.index[df1.Date == date2].values[0]))
+for date2 in dfBMW.Date:
+    if dfMBG.index[dfMBG.Date == date2].values.size:
+        index2.append(int(dfMBG.index[dfMBG.Date == date2].values[0]))
 print(index2)
 
 
-mean = df1["Close"].mean()
+mean = dfMBG["Close"].mean()
 
 
-plt.figure("Apple Stock")
-plt.plot(df1["Date"], df1["Close"], 'r-', linewidth=0.6, label="APPL Stock price, mean="+str(mean))
-# or the same can be:
-# plt.plot("Date", "Close", 'r-', linewidth=0.6, label="APPL Stock price, mean="+str(mean), data=df1)
-plt.plot(df1["Date"], df1["Close"], 'o', ms=7, markevery=index2, label="Iphone launch date")
+plt.figure("Mercedes vs BMW stocks in Germany")
+plt.plot(dfMBG["Date"], dfMBG["Close"], 'r-', linewidth=0.6, color='blue', label="Mercedes stock price, mean="+str(mean))
+plt.plot(dfBMW["Date"], dfBMW["Close"], 'r-', ms=7, color='green', linewidth=0.6, markevery=index2, label="BMW stock price, mean="+str(mean))
 plt.xlabel("Dates")
-plt.legend(loc="upper left")
+plt.ylabel("Stock price")
+plt.legend(loc="lower left", prop={'size': 7})
 
 plt.show()
