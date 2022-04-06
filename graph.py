@@ -33,3 +33,7 @@ plt.ylabel("Stock price")
 plt.legend(loc="lower left", prop={'size': 7})
 
 plt.show()
+
+#Short analysis of the graph: The stock price of BMW is higher than the one for Mercedes
+# They move in a similar way. At the end of the year 2021, they have experienced a shock
+#this sock impacted more on Mercedes than on BMW
